@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block metadescription %}
+
+      {{prod.description | truncatewords:150}}
+
+{% endblock %}
+
+{% block title %}
+    {% if cpage %}
+      {{prod.name}}
+    {% endif %}
+{% endblock %}
+{% block content %}
+<div class="container">
+<div class="row my_prod_row">
+  <div class="mx_auto">
+    <p><a href="{% url 'Ecommerce_app:allproducts' %}">Home</a> | <a href="{{prod.ctg.get_url}}">{{prod.ctg}}</a>| {{prod.name}}</p>
+  </div>
+    <div class="container">
+    <br>
+<div class="row">
+    <div class="col-12 col-sm-12 col-md-12 col-lg-6 text-center">
+        <div style="min-width:18rem">
+            <p><img src="{{prod.image.url}}" width="300px" alt="{{prod.name}}"> </p>
+        </div>
+    </div>
+        <div class="col-12 col-sm-12 col-md-12 col-lg-6">
+            <div>
+            <h2 class="my_prod_title"><b>{{prod.name}}</b></h2>
+            <p>${{prod.price}}</p>
+            <h3 class="my_title">PRODUCT DESCRIPTION</h3>
+            <p class="text-justify my_prod_text">{{prod.description}}</p>
+            {% if prod.stock <= 0 %}
+                <p class="text-justify my_prod_text"><b>OUT OF STOCK</b></p>
+            {% else %}
+                <a class="btn btn-dark" href="{% url 'cart_app:add_cart' prod.id %}">Add to Cart</a>
+                <a class="btn btn-secondary" href="{% url 'wishlist_app:add_wish' prod.id %}">Add to Wishlist</a>
+            <br>
+            <br>
+            {% endif %}
+        </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+{% endblock %}

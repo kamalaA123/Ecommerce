@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block metadescription %}
+We have unlimited products on here
+{% endblock %}
+{% block content %}
+<div>
+    <p class="text-center my_search_text">You have searched for:<b>"{{query}}"</b></p>
+</div>
+<br>
+<div class="container">
+    <div class="row mx_auto">
+    {% for p in products %}
+        <div class="my_bottom_margin col-9 col-sm-12 col-md-4 col-md-4">
+            <div class="card text-center style=min-width:18rem;">
+                <a href="{{p.get_url}}"><img class="card-img-top my_image" src="{{p.image.url}}"></a>
+            </div>
+            <div class="card-body">
+                <h2>{{p.name}}</h2>
+                <p>{{p.price}}</p>
+            </div>
+        </div>
+        {% empty %}
+        <div class="row mx_auto">
+            <p class="text-center my_search_text">No results found</p>
+        </div>
+    {% endfor %}
+    </div>
+</div>
+{% endblock %}

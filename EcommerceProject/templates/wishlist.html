@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block metadescription %}
+Wishlist...!
+{% endblock %}
+{% block title %}
+Wishlist-Fashion Trend
+{% endblock %}
+{% block content %}
+{% if not wish_items %}
+<div>
+    <div class="text-center">
+        <br>
+        <h1 class="text-center my_title">
+            <b>Your wishlist is feeling lonely</b> <i class="fa-regular fa-face-frown-open fa-spin fa-spin-reverse fa-lg"></i>
+        </h1>
+        <p class="text-center">
+            Add some new items from <a href="{% url 'Ecommerce_app:allproducts' %}">Here</a>
+        </p>
+    </div>
+</div>
+{% else %}
+<div class="container">
+    <div>
+        <h1 class="text-center my_title">Your Wishlist </h1>
+    </div>
+    <br>
+    <div class="row mx_auto">
+    {% for w in wish_items %}
+        <div class="my_bottom_margin col-9 col-sm-12 col-md-4 col-md-4">
+            <div class="card text-center style=min-width:18rem;">
+                <a href=""><img class="card-img-top my_image" src="{{w.products.image.url}}" style="width:200px;height:200px;"></a>
+                <div class="card-body">
+                    <h2>{{w.products.name}}</h2>
+                    <p>$ {{w.products.price}}</p>
+                    <a href="{% url 'cart_app:add_cart' w.products.id %}" class="btn btn-dark">Add to Cart</a>
+                    <a href="{% url 'wishlist_app:delete' w.products.id %}" class="btn btn-dark"><i class="fa-solid fa-trash" style="color: #d5dae1;"></i></a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+{% endblock %}
+
+
+
+
+<!-- {% for w in wish_items %}-->
+<!--    <div class="card">-->
+<!--    <img src="{{w.products.image.url}}" alt="Card image cap">-->
+<!--    <div class="card-body">-->
+<!--      <h5 class="card-title">{{w.products.name}}</h5>-->
+<!--      <p class="card-text">$ {{w.products.price}}</p>-->
+<!--      <p class="card-text"><a href="{% url 'cart_app:add_cart' w.products.id %}" class="btn btn-dark">Add to Cart</a></p>-->
+<!--        {% endfor %}-->
